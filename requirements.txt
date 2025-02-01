@@ -9,4 +9,5 @@ pandasai==2.2.14
 pyodbc==5.2.0
 speechrecognition==3.10.1
 pyaudio==0.2.14
+pymysql==1.1.1
 
