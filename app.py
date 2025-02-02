@@ -12,7 +12,8 @@ from pandasai import SmartDataframe
 import streamlit as st
 from PIL import Image 
 import pyodbc
-
+import glob
+import os
 from voice_recognition import record_and_recognize
 
 # Load environment variables from a .env file
@@ -37,7 +38,7 @@ def init_database(
         password: str = None, 
         host: str = "", 
         port: str = "", 
-        mysql_database: str = "", 
+        mysql_database: str = "database", 
         server: str = "", 
         sqlserver_database: str = "",
         driver: str = ""
@@ -247,9 +248,9 @@ if "chat_history" not in st.session_state:
 
 # Set up the Streamlit page
 
-st.set_page_config(page_title="Vodafone Chatbot", page_icon=":speech_balloon:")
+st.set_page_config(page_title="Chat With Your Database", page_icon=":speech_balloon:")
 
-st.title("Chat with Vodafone Database")
+st.title("Chat with Your Database")
 
 # Add voice recognition JavaScript
 
@@ -258,22 +259,23 @@ st.title("Chat with Vodafone Database")
 # Sidebar for database connection settings
 
 with st.sidebar:
-    st.image("https://1000logos.net/wp-content/uploads/2017/06/Vodafone_Logo.png")
+    #st.image("https://1000logos.net/wp-content/uploads/2017/06/Vodafone_Logo.png")
     st.subheader("Settings")
-    st.write("Connect Vodafone local database and start chatting.")
+    st.write("Connect To Your local database and start chatting.")
     
-    db_type = st.selectbox("Database Type", ["MySQL", "SQLServer"], key="DB_Type")
+    db_type = st.selectbox("database Type", ["MySQL", "SQLServer"], key="DB_Type")
 
     if st.session_state["DB_Type"] == "MySQL":
         st.text_input("User", value="root", key="User")
-        st.text_input("Password", type="password", value="root123", key="Password")
+        st.text_input("Password", type="password", value="Ab59678918", key="Password")
         st.text_input("Host", value="localhost", key="Host")
         st.text_input("Port", value="3306", key="Port")
-        st.text_input("Database", value="Chinook", key="MySQL_Database")
+        st.text_input("Database", value="chinook", key="MySQL_Database")
     else:
         st.text_input("Server", value="BASSIONY", key="Server")
-        st.text_input("Database", value="Chatbot_DB", key="SQLServer_Database")
+        st.text_input("database", value="Chatbot_DB", key="SQLServer_Database")
         st.selectbox("Driver", ["ODBC+Driver+17+for+SQL+Server", "ODBC+Driver+18+for+SQL+Server"], key="Driver")
+
 
 
     if st.button("Connect"):
@@ -306,7 +308,7 @@ with st.sidebar:
 
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
-        with st.chat_message("AI", avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ9uo29rKi1lXepifVFHiXtetcFLN7dyZhcQ&s"):
+        with st.chat_message("AI", avatar="F:\Downloads\downloads\Vodafone-Chatbot-main (1)\Vodafone-Chatbot-main\src\sql.png"):
             st.markdown(message.content)
     elif isinstance(message, HumanMessage):
         with st.chat_message("Human"):
@@ -333,13 +335,23 @@ with col2:
             st.session_state.recognized_text = recognized_text
             st.rerun()  # Use st.rerun() instead of st.experimental_rerun()
 
+
+
+#database = st.session_state["MySQL_Database"]
+# Define the temporary folder path
+temp_folder = r"C:\Users\besho\AppData\Local\Temp"
+
+if "db" not in st.session_state:
+    st.session_state["db"] = None
+
+# Your existing code
 if user_query is not None and user_query.strip() != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     
     with st.chat_message("Human"):
         st.markdown(user_query)
         
-    with st.chat_message("AI", avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ9uo29rKi1lXepifVFHiXtetcFLN7dyZhcQ&s"):
+    with st.chat_message("AI", avatar="F:\Downloads\downloads\Vodafone-Chatbot-main (1)\Vodafone-Chatbot-main\src\sql.png"):
         
         check_plotting_chain = check_plotting()
         st.session_state.boolean_plotting = check_plotting_chain.invoke({
@@ -361,7 +373,7 @@ if user_query is not None and user_query.strip() != "":
                     st.session_state["Password"],
                     st.session_state["Host"],
                     st.session_state["Port"],
-                    st.session_state["chinook"],
+                    st.session_state["MySQL_Database"],
                     st.session_state["table_name"],
                 )
 
@@ -373,10 +385,10 @@ if user_query is not None and user_query.strip() != "":
 
                 image_path = r'C:\Users\moham\Desktop\Projects\Vodafone-Chatbot\src\exports\charts\temp_chart.png'
                 # Open the image using PIL
-                image = Image.open(image_path)
+                #image = Image.open(image_path)
 
                 # Display the image in Streamlit
-                st.image(image)
+                #st.image(image)
 
                 # #st.markdown(st.image(image))
                 st.session_state.chat_history.append(AIMessage(content=response))
@@ -389,6 +401,9 @@ if user_query is not None and user_query.strip() != "":
                         mime="image/png"
                     )
 
+
+
+
             else:
                 fallback_response = "I'm sorry, but I couldn't find the information you're looking for in the database."
                 st.markdown(fallback_response)
@@ -400,4 +415,3 @@ if user_query is not None and user_query.strip() != "":
             st.markdown(response)
 
             st.session_state.chat_history.append(AIMessage(content=response))
-
