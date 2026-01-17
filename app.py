@@ -3,7 +3,6 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_community.utilities import SQLDatabase
-from langchain.sql_database import SQLDatabase
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.llms import Ollama
 from langchain_groq import ChatGroq
@@ -12,25 +11,17 @@ from pandasai import SmartDataframe
 import streamlit as st
 from PIL import Image 
 import pyodbc
-
 from voice_recognition import record_and_recognize
 
 # Load environment variables from a .env file
-
 load_dotenv()
 
 
 # Initialize the model
-
 llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
-
-#llm = Ollama(model="llama3")
-
-
 
 
 # Initialize the database connection using pyodbc for SQL Server LocalDB and Windows Authentication
-
 def init_database(
         db_type: str = "",
         user: str = None, 
@@ -69,10 +60,7 @@ def init_database(
 
 
 
-
-
 # Create a chain to process SQL queries
-
 def check_plotting():
   template = """
     You are a pandas ai expert at a company. You are interacting with a user who is asking you questions about the company's database.
@@ -165,7 +153,6 @@ def get_sql_chain(db):
     
   prompt = ChatPromptTemplate.from_template(template)
   
-  llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
   
   def get_schema(_):
     return db.get_table_info()
@@ -223,7 +210,6 @@ def table_exists(db, table_name):
 
 
 # Initialize the MySQL connection using MySQLConnector from pandasai
-
 def init_MySQLConnector_pandasai(user: str, password: str, host: str, port: str, database: str, table: str) -> MySQLConnector:
     return MySQLConnector(
         config={
@@ -238,7 +224,6 @@ def init_MySQLConnector_pandasai(user: str, password: str, host: str, port: str,
 
 
 # Initialize chat history if not already present
-
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         AIMessage(content="Hello 👋! How can I assist you?"),
@@ -246,13 +231,10 @@ if "chat_history" not in st.session_state:
 
 
 # Set up the Streamlit page
-
 st.set_page_config(page_title="Vodafone Chatbot", page_icon=":speech_balloon:")
 
+
 st.title("Chat with Vodafone Database")
-
-# Add voice recognition JavaScript
-
 
 
 # Sidebar for database connection settings
@@ -303,7 +285,6 @@ with st.sidebar:
               st.error(f"Connection failed: {e}")
 
 # Display chat history
-
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
         with st.chat_message("AI", avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ9uo29rKi1lXepifVFHiXtetcFLN7dyZhcQ&s"):
@@ -366,12 +347,12 @@ if user_query is not None and user_query.strip() != "":
                 )
 
                 # Initialize the SmartDataframe with the updated connector
-
                 df_connector = SmartDataframe(st.session_state.my_connector, config={"llm": llm})
 
                 response = df_connector.chat(user_query)
 
                 image_path = r'C:\Users\moham\Desktop\Projects\Vodafone-Chatbot\src\exports\charts\temp_chart.png'
+                
                 # Open the image using PIL
                 image = Image.open(image_path)
 
