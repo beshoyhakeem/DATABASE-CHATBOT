@@ -9,16 +9,22 @@ from langchain_groq import ChatGroq
 from pandasai.connectors import MySQLConnector
 from pandasai import SmartDataframe
 import streamlit as st
+import matplotlib.pyplot as plt
+import tempfile
 from PIL import Image 
 import pyodbc
+import glob
+import os
 from voice_recognition import record_and_recognize
+
 
 # Load environment variables from a .env file
 load_dotenv()
 
 
 # Initialize the model
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=1)
+
 
 
 # Initialize the database connection using pyodbc for SQL Server LocalDB and Windows Authentication
@@ -28,7 +34,7 @@ def init_database(
         password: str = None, 
         host: str = "", 
         port: str = "", 
-        mysql_database: str = "", 
+        mysql_database: str = "database", 
         server: str = "", 
         sqlserver_database: str = "",
         driver: str = ""
@@ -56,6 +62,8 @@ def init_database(
         raise ValueError("Unsupported database type. Use 'mysql' or 'sqlserver'.")
     
     return SQLDatabase.from_uri(db_uri)
+
+
 
 
 
@@ -128,6 +136,7 @@ def get_sql_table(db):
   )
 
 
+
 def get_sql_chain(db):
   template = """
     You are a data analyst at a company. You are interacting with a user who is asking you questions about the company's database.
@@ -153,6 +162,7 @@ def get_sql_chain(db):
     
   prompt = ChatPromptTemplate.from_template(template)
   
+  #llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
   
   def get_schema(_):
     return db.get_table_info()
@@ -198,13 +208,17 @@ def get_response(user_query: str, db: SQLDatabase, chat_history: list):
             "question": user_query,
             "chat_history": chat_history,
         })
-  except Exception as e:
-        return f"Sorry, I couldn't find any data related to your question. Please try asking something else."
+  
+  except Exception as e:   
+    return f"ERROR: {str(e)}"
+  
+  
+  #except Exception as e:
+   #     return f"Sorry, I couldn't find any data related to your question. Please try asking something else."
     
 
 
 # Check if a table exists in the database
-
 def table_exists(db, table_name):
     return table_name in db.get_table_names()
 
@@ -231,31 +245,27 @@ if "chat_history" not in st.session_state:
 
 
 # Set up the Streamlit page
-st.set_page_config(page_title="Vodafone Chatbot", page_icon=":speech_balloon:")
-
-
-st.title("Chat with Vodafone Database")
+st.set_page_config(page_title="Chat With Your Database", page_icon=":speech_balloon:")
 
 
 # Sidebar for database connection settings
-
 with st.sidebar:
-    st.image("https://1000logos.net/wp-content/uploads/2017/06/Vodafone_Logo.png")
     st.subheader("Settings")
-    st.write("Connect Vodafone local database and start chatting.")
+    st.write("Connect To Your local database and start chatting.")
     
-    db_type = st.selectbox("Database Type", ["MySQL", "SQLServer"], key="DB_Type")
+    db_type = st.selectbox("database Type", ["MySQL", "SQLServer"], key="DB_Type")
 
     if st.session_state["DB_Type"] == "MySQL":
         st.text_input("User", value="root", key="User")
-        st.text_input("Password", type="password", value="root123", key="Password")
+        st.text_input("Password", type="password", value="Ab59678918", key="Password")
         st.text_input("Host", value="localhost", key="Host")
         st.text_input("Port", value="3306", key="Port")
-        st.text_input("Database", value="Chinook", key="MySQL_Database")
+        st.text_input("Database", value="chinook", key="MySQL_Database")
     else:
         st.text_input("Server", value="BASSIONY", key="Server")
-        st.text_input("Database", value="Chatbot_DB", key="SQLServer_Database")
+        st.text_input("database", value="Chatbot_DB", key="SQLServer_Database")
         st.selectbox("Driver", ["ODBC+Driver+17+for+SQL+Server", "ODBC+Driver+18+for+SQL+Server"], key="Driver")
+
 
 
     if st.button("Connect"):
@@ -284,13 +294,17 @@ with st.sidebar:
           except Exception as e:
               st.error(f"Connection failed: {e}")
 
+
+
+st.title("Chat with Your Database")
+
 # Display chat history
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
-        with st.chat_message("AI", avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ9uo29rKi1lXepifVFHiXtetcFLN7dyZhcQ&s"):
+        with st.chat_message("assistant", avatar="sql.png"):
             st.markdown(message.content)
     elif isinstance(message, HumanMessage):
-        with st.chat_message("Human"):
+        with st.chat_message("user"):
             st.markdown(message.content)
 
 
@@ -299,86 +313,75 @@ if "recognized_text" not in st.session_state:
     st.session_state.recognized_text = ""  # Initialize with an empty string
 
 # Handle user input
-col1, col2 = st.columns([4, 1])
+user_query = st.chat_input("Type your message here...")
 
-with col1:
-    # Use a regular text input instead of st.chat_input
-    user_query = st.text_input("Type a message...", value=st.session_state.recognized_text)
 
-with col2:
-    if st.button("Press to Record", key="record_button"):
-        result = record_and_recognize()
-        if result.startswith("Recognized Text:"):
-            # Update the session state with the recognized text
-            recognized_text = result.replace("Recognized Text:", "").strip()
-            st.session_state.recognized_text = recognized_text
-            st.rerun()  # Use st.rerun() instead of st.experimental_rerun()
+#database = st.session_state["MySQL_Database"]
+# Define the temporary folder path
+temp_folder = r"C:\Users\besho\AppData\Local\Temp"
 
-if user_query is not None and user_query.strip() != "":
+if "db" not in st.session_state:
+    st.session_state["db"] = None
+
+# Your existing code
+if user_query and user_query.strip() != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
-    
-    with st.chat_message("Human"):
-        st.markdown(user_query)
-        
-    with st.chat_message("AI", avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ9uo29rKi1lXepifVFHiXtetcFLN7dyZhcQ&s"):
-        
-        check_plotting_chain = check_plotting()
-        st.session_state.boolean_plotting = check_plotting_chain.invoke({
+
+    # DB guard
+    if st.session_state.db is None:
+        st.session_state.chat_history.append(
+            AIMessage(content="❌ Please connect to the database first from the sidebar.")
+        )
+        st.rerun()
+
+    check_plotting_chain = check_plotting()
+    boolean_plotting = check_plotting_chain.invoke({
+        "question": user_query
+    })
+
+    if boolean_plotting.strip().lower() == "true":
+
+        sql_chain = get_sql_table(st.session_state.db)
+        table_name = sql_chain.invoke({
+            "chat_history": st.session_state.chat_history,
             "question": user_query
-        })
+        }).strip().replace("`", "")
 
-        if st.session_state.boolean_plotting == "True":
-        
-            sql_chain = get_sql_table(st.session_state.db)
-            st.session_state.table_name = sql_chain.invoke({
-                "chat_history": st.session_state.chat_history,
-                "question": user_query
-            })
-            
-            if table_exists(st.session_state.db, st.session_state.table_name):
+        if table_exists(st.session_state.db, table_name):
 
-                st.session_state.my_connector = init_MySQLConnector_pandasai(
-                    st.session_state["User"],
-                    st.session_state["Password"],
-                    st.session_state["Host"],
-                    st.session_state["Port"],
-                    st.session_state["chinook"],
-                    st.session_state["table_name"],
-                )
+            my_connector = init_MySQLConnector_pandasai(
+                st.session_state["User"],
+                st.session_state["Password"],
+                st.session_state["Host"],
+                st.session_state["Port"],
+                st.session_state["MySQL_Database"],
+                table_name,
+            )
 
-                # Initialize the SmartDataframe with the updated connector
-                df_connector = SmartDataframe(st.session_state.my_connector, config={"llm": llm})
+            df_connector = SmartDataframe(
+                my_connector,
+                config={
+                    "llm": llm,
+                    "enable_cache": False,
+                    "use_error_correction_framework": False
+                }
+            )
 
-                response = df_connector.chat(user_query)
+            response = df_connector.chat(user_query)
 
-                image_path = r'C:\Users\moham\Desktop\Projects\Vodafone-Chatbot\src\exports\charts\temp_chart.png'
-                
-                # Open the image using PIL
-                image = Image.open(image_path)
+            fig = plt.gcf()
+            st.pyplot(fig)
+            plt.clf()
 
-                # Display the image in Streamlit
-                st.image(image)
-
-                # #st.markdown(st.image(image))
-                st.session_state.chat_history.append(AIMessage(content=response))
-
-                with open(image_path, "rb") as file:
-                    btn = st.download_button(
-                        label="Download image",
-                        data=file,
-                        file_name=image_path,
-                        mime="image/png"
-                    )
-
-            else:
-                fallback_response = "I'm sorry, but I couldn't find the information you're looking for in the database."
-                st.markdown(fallback_response)
-                st.session_state.chat_history.append(AIMessage(content=fallback_response))
+            st.session_state.chat_history.append(AIMessage(content=str(response)))
 
         else:
+            st.session_state.chat_history.append(
+                AIMessage(content="❌ I couldn't find a relevant table for that request.")
+            )
 
-            response = get_response(user_query, st.session_state.db, st.session_state.chat_history)
-            st.markdown(response)
+    else:
+        response = get_response(user_query, st.session_state.db, st.session_state.chat_history)
+        st.session_state.chat_history.append(AIMessage(content=response))
 
-            st.session_state.chat_history.append(AIMessage(content=response))
-
+    st.rerun()

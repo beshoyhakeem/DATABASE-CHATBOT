@@ -1,0 +1,2509 @@
+2026-01-14 03:17:37 [INFO] Question: show me a bar chart for tracks with longest length in the database
+2026-01-14 03:17:37 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 03:17:37 [INFO] Prompt ID: 455996a3-b3c6-4525-9236-26194eb4e970
+2026-01-14 03:17:37 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 03:17:37 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 03:17:37 [INFO] Executing Step 1: CacheLookup
+2026-01-14 03:17:37 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 03:17:37 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+1322,The Trooper,104,1,1,,232672,5588560,0.99
+1190,Magnetic Ocean,93,1,2,Patrick Claher/Richard Bull,321123,10720741,0.99
+2171,Unemployable,179,1,4,Matt Cameron & Mike McCready,184398,6066542,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 03:17:37 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 03:17:37 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:17:37 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+1322,The Trooper,104,1,1,,232672,5588560,0.99
+1190,Magnetic Ocean,93,1,2,Patrick Claher/Richard Bull,321123,10720741,0.99
+2171,Unemployable,179,1,4,Matt Cameron & Mike McCready,184398,6066542,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 03:17:37 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Write code here
+# Get the longest tracks
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+
+# Create a bar chart for the longest tracks
+plt.figure(figsize=(10,6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('longest_tracks.png', bbox_inches='tight')
+
+# Declare result var: 
+result = {
+    "type": "plot", 
+    "value": "longest_tracks.png"
+}
+            ```
+            
+2026-01-14 03:17:37 [INFO] Executing Step 4: CachePopulation
+2026-01-14 03:17:37 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 03:17:37 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 03:17:37 [INFO] 
+Code running:
+```
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 03:17:38 [INFO] Executing Step 6: CodeExecution
+2026-01-14 03:17:38 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 8, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+2026-01-14 03:17:38 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2026-01-14 03:17:38 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2026-01-14 03:17:38 [INFO] Executing Step 0: ErrorPromptGeneration
+2026-01-14 03:17:38 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+1322,The Trooper,104,1,1,,232672,5588560,0.99
+1190,Magnetic Ocean,93,1,2,Patrick Claher/Richard Bull,321123,10720741,0.99
+2171,Unemployable,179,1,4,Matt Cameron & Mike McCready,184398,6066542,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 8, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+2026-01-14 03:17:38 [INFO] Executing Step 1: CodeGenerator
+2026-01-14 03:17:38 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:17:38 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+1322,The Trooper,104,1,1,,232672,5588560,0.99
+1190,Magnetic Ocean,93,1,2,Patrick Claher/Richard Bull,321123,10720741,0.99
+2171,Unemployable,179,1,4,Matt Cameron & Mike McCready,184398,6066542,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 8, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+            
+2026-01-14 03:17:38 [INFO] Code generated:
+            ```
+            longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+            ```
+            
+2026-01-14 03:17:38 [INFO] Executing Step 2: CodeCleaning
+2026-01-14 03:17:38 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 03:17:38 [INFO] 
+Code running:
+```
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 03:17:39 [INFO] Executing Step 7: ResultValidation
+2026-01-14 03:17:39 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-14 03:17:39 [INFO] Executing Step 8: ResultParsing
+2026-01-14 03:18:13 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:18:14 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:18:30 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:18:30 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:18:32 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:18:33 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:18:34 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:18:35 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:18:36 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:18:37 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:20:46 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:20:46 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:20:52 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:20:53 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:21:04 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:21:04 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:21:08 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:21:08 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:21:16 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:21:17 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:21:38 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:21:38 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:23:42 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:23:42 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:23:42 [INFO] Question: show me a bar chart for tracks with longest length in the database
+2026-01-14 03:23:42 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 03:23:42 [INFO] Prompt ID: ac8e9f97-3354-48b4-8e76-f3ec49aa12eb
+2026-01-14 03:23:42 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 03:23:42 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 03:23:42 [INFO] Executing Step 1: CacheLookup
+2026-01-14 03:23:42 [INFO] Using cached response
+2026-01-14 03:23:42 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 03:23:42 [INFO] Executing Step 2: Skipping...
+2026-01-14 03:23:42 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 03:23:42 [INFO] Executing Step 3: Skipping...
+2026-01-14 03:23:42 [INFO] Executing Step 4: CachePopulation
+2026-01-14 03:23:42 [INFO] Executing Step 4: Skipping...
+2026-01-14 03:23:42 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 03:23:42 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 03:23:42 [INFO] 
+Code running:
+```
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 03:23:42 [INFO] Executing Step 6: CodeExecution
+2026-01-14 03:23:42 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 8, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+2026-01-14 03:23:42 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2026-01-14 03:23:42 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2026-01-14 03:23:42 [INFO] Executing Step 0: ErrorPromptGeneration
+2026-01-14 03:23:42 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2090,Romance Ideal,169,1,7,,250070,8260477,0.99
+3370,Times of Trouble,269,2,23,,342539,5795951,0.99
+1164,Bad Obsession,91,2,1,,328282,5537678,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 8, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+2026-01-14 03:23:42 [INFO] Executing Step 1: CodeGenerator
+2026-01-14 03:23:43 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:23:43 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2090,Romance Ideal,169,1,7,,250070,8260477,0.99
+3370,Times of Trouble,269,2,23,,342539,5795951,0.99
+1164,Bad Obsession,91,2,1,,328282,5537678,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 8, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+            
+2026-01-14 03:23:43 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+            ```
+            
+2026-01-14 03:23:43 [INFO] Executing Step 2: CodeCleaning
+2026-01-14 03:23:43 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 03:23:43 [INFO] 
+Code running:
+```
+longest_tracks = dfs[0].sort_values(by='Milliseconds', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 03:23:43 [INFO] Executing Step 7: ResultValidation
+2026-01-14 03:23:43 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-14 03:23:43 [INFO] Executing Step 8: ResultParsing
+2026-01-14 03:24:22 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:24:22 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:40:50 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:40:50 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:41:05 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:42:09 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:42:09 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:42:15 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 03:42:15 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 03:48:58 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2026-01-14 04:00:25 [INFO] Question: show me a bar chary that lists how many artist is in my database
+2026-01-14 04:00:25 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:00:25 [INFO] Prompt ID: 13c1d4c8-0f14-4ec0-97e2-e4dfc80bcf34
+2026-01-14 04:00:25 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:00:25 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:00:25 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:00:25 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:00:25 [INFO] Using prompt: <dataframe name="artist">
+dfs[0]:275x2
+ArtistId,Name
+14,Bruce Dickinson
+215,Academy of St. Martin in the Fields Chamber Ensemble & Sir Neville Marriner
+29,Bebel Gilberto
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chary that lists how many artist is in my database
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:00:25 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:00:26 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:00:26 [INFO] Prompt used:
+            
+<dataframe name="artist">
+dfs[0]:275x2
+ArtistId,Name
+14,Bruce Dickinson
+215,Academy of St. Martin in the Fields Chamber Ensemble & Sir Neville Marriner
+29,Bebel Gilberto
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chary that lists how many artist is in my database
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:00:26 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the artist dataframe
+artist_df = dfs[0]
+
+# Count the number of artists
+num_artists = len(artist_df)
+
+# Create a bar chart
+plt.figure(figsize=(10, 6))
+plt.bar(range(1), [num_artists])
+plt.xlabel('Artist')
+plt.ylabel('Count')
+plt.title('Number of Artists in Database')
+plt.xticks(range(1), ['Artists'])
+plt.savefig('artist_count.png', bbox_inches='tight')
+
+# Declare result var: 
+result = { 
+    "type": "plot", 
+    "value": "artist_count.png" 
+}
+            ```
+            
+2026-01-14 04:00:26 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:00:26 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:00:26 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:00:26 [INFO] 
+Code running:
+```
+artist_df = dfs[0]
+num_artists = len(artist_df)
+plt.figure(figsize=(10, 6))
+plt.bar(range(1), [num_artists])
+plt.xlabel('Artist')
+plt.ylabel('Count')
+plt.title('Number of Artists in Database')
+plt.xticks(range(1), ['Artists'])
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:00:26 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:00:26 [INFO] Executing Step 7: ResultValidation
+2026-01-14 04:00:26 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-14 04:00:26 [INFO] Executing Step 8: ResultParsing
+2026-01-14 04:00:52 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:00:52 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:01:01 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:01:01 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:01:01 [INFO] Question: show me a bar chary that lists how many artist is in my databasE
+2026-01-14 04:01:01 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:01:01 [INFO] Prompt ID: f397b2b4-61ca-4013-b186-3a5f33af3e78
+2026-01-14 04:01:01 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:01:01 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:01:01 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:01:01 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:01:01 [INFO] Using prompt: <dataframe name="artist">
+dfs[0]:275x2
+ArtistId,Name
+114,Ozzy Osbourne
+78,Def Leppard
+186,Pedro Luís E A Parede
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chary that lists how many artist is in my databasE
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:01:01 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:01:02 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:01:02 [INFO] Prompt used:
+            
+<dataframe name="artist">
+dfs[0]:275x2
+ArtistId,Name
+114,Ozzy Osbourne
+78,Def Leppard
+186,Pedro Luís E A Parede
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chary that lists how many artist is in my databasE
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:01:02 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of dataframes and dfs[0] is the dataframe for the 'artist' table
+artist_df = dfs[0]
+
+# Count the number of artists
+num_artists = len(artist_df)
+
+# Plot a bar chart with the number of artists
+plt.figure(figsize=(10, 6))
+plt.bar(["Number of Artists"], [num_artists])
+plt.xlabel("Category")
+plt.ylabel("Count")
+plt.title("Number of Artists in the Database")
+plt.savefig("num_artists.png", bbox_inches="tight")
+
+# Declare result var: 
+result = {
+    "type": "plot", 
+    "value": "num_artists.png"
+}
+            ```
+            
+2026-01-14 04:01:02 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:01:02 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:01:02 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:01:02 [INFO] 
+Code running:
+```
+artist_df = dfs[0]
+num_artists = len(artist_df)
+plt.figure(figsize=(10, 6))
+plt.bar(['Number of Artists'], [num_artists])
+plt.xlabel('Category')
+plt.ylabel('Count')
+plt.title('Number of Artists in the Database')
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:01:02 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:01:02 [INFO] Executing Step 7: ResultValidation
+2026-01-14 04:01:02 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-14 04:01:02 [INFO] Executing Step 8: ResultParsing
+2026-01-14 04:02:26 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:26 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:27 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:37 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:37 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:37 [INFO] Question: show me a bar chart for tracks with longest length in the database
+2026-01-14 04:02:37 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:02:37 [INFO] Prompt ID: 3c99aa40-5bbe-4e8b-8232-bfe604790e05
+2026-01-14 04:02:37 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:02:37 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:02:37 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:02:37 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:02:37 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2182,Ghost,180,1,1,Jeff Ament,195108,6383772,0.99
+302,A Estrada,27,1,8,Da Gama/Lazao/Toni Garrido,282174,9344477,0.99
+3421,"Nimrod (Adagio) from Variations On an Original Theme, Op. 36 ""Enigma""",290,2,24,Edward Elgar,250031,4124707,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:02:37 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:02:38 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:38 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2182,Ghost,180,1,1,Jeff Ament,195108,6383772,0.99
+302,A Estrada,27,1,8,Da Gama/Lazao/Toni Garrido,282174,9344477,0.99
+3421,"Nimrod (Adagio) from Variations On an Original Theme, Op. 36 ""Enigma""",290,2,24,Edward Elgar,250031,4124707,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:02:38 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Write code here
+# Get the track dataframe
+track_df = dfs[0]
+
+# Sort the tracks by Milliseconds in descending order
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+
+# Get the top 10 longest tracks
+longest_tracks = sorted_tracks.head(10)
+
+# Create a bar chart for the longest tracks
+plt.figure(figsize=(10,6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('longest_tracks.png')
+
+# Declare result var: 
+result = {
+    "type": "plot", 
+    "value": "longest_tracks.png"
+}
+            ```
+            
+2026-01-14 04:02:38 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:02:38 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:02:38 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:02:38 [INFO] 
+Code running:
+```
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:02:38 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:02:38 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+2026-01-14 04:02:38 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2026-01-14 04:02:38 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2026-01-14 04:02:38 [INFO] Executing Step 0: ErrorPromptGeneration
+2026-01-14 04:02:38 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2182,Ghost,180,1,1,Jeff Ament,195108,6383772,0.99
+302,A Estrada,27,1,8,Da Gama/Lazao/Toni Garrido,282174,9344477,0.99
+3421,"Nimrod (Adagio) from Variations On an Original Theme, Op. 36 ""Enigma""",290,2,24,Edward Elgar,250031,4124707,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+2026-01-14 04:02:38 [INFO] Executing Step 1: CodeGenerator
+2026-01-14 04:02:39 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:39 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2182,Ghost,180,1,1,Jeff Ament,195108,6383772,0.99
+302,A Estrada,27,1,8,Da Gama/Lazao/Toni Garrido,282174,9344477,0.99
+3421,"Nimrod (Adagio) from Variations On an Original Theme, Op. 36 ""Enigma""",290,2,24,Edward Elgar,250031,4124707,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+            
+2026-01-14 04:02:39 [INFO] Code generated:
+            ```
+            track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.2)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+            ```
+            
+2026-01-14 04:02:39 [INFO] Executing Step 2: CodeCleaning
+2026-01-14 04:02:39 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:02:39 [INFO] 
+Code running:
+```
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.2)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:02:39 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'subplots_adjust' is not allowed in RestrictedMatplotlib
+
+2026-01-14 04:02:39 [WARNING] Failed to execute code retrying with a correction framework [retry number: 2]
+2026-01-14 04:02:39 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2026-01-14 04:02:39 [INFO] Executing Step 0: ErrorPromptGeneration
+2026-01-14 04:02:39 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2182,Ghost,180,1,1,Jeff Ament,195108,6383772,0.99
+302,A Estrada,27,1,8,Da Gama/Lazao/Toni Garrido,282174,9344477,0.99
+3421,"Nimrod (Adagio) from Variations On an Original Theme, Op. 36 ""Enigma""",290,2,24,Edward Elgar,250031,4124707,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.2)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'subplots_adjust' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+2026-01-14 04:02:39 [INFO] Executing Step 1: CodeGenerator
+2026-01-14 04:02:40 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:40 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2182,Ghost,180,1,1,Jeff Ament,195108,6383772,0.99
+302,A Estrada,27,1,8,Da Gama/Lazao/Toni Garrido,282174,9344477,0.99
+3421,"Nimrod (Adagio) from Variations On an Original Theme, Op. 36 ""Enigma""",290,2,24,Edward Elgar,250031,4124707,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.2)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'subplots_adjust' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+            
+2026-01-14 04:02:40 [INFO] Code generated:
+            ```
+            track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+            ```
+            
+2026-01-14 04:02:40 [INFO] Executing Step 2: CodeCleaning
+2026-01-14 04:02:40 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:02:40 [INFO] 
+Code running:
+```
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:02:40 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+2026-01-14 04:02:40 [WARNING] Failed to execute code retrying with a correction framework [retry number: 3]
+2026-01-14 04:02:40 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2026-01-14 04:02:40 [INFO] Executing Step 0: ErrorPromptGeneration
+2026-01-14 04:02:40 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2182,Ghost,180,1,1,Jeff Ament,195108,6383772,0.99
+302,A Estrada,27,1,8,Da Gama/Lazao/Toni Garrido,282174,9344477,0.99
+3421,"Nimrod (Adagio) from Variations On an Original Theme, Op. 36 ""Enigma""",290,2,24,Edward Elgar,250031,4124707,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+2026-01-14 04:02:40 [INFO] Executing Step 1: CodeGenerator
+2026-01-14 04:02:40 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:02:40 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2182,Ghost,180,1,1,Jeff Ament,195108,6383772,0.99
+302,A Estrada,27,1,8,Da Gama/Lazao/Toni Garrido,282174,9344477,0.99
+3421,"Nimrod (Adagio) from Variations On an Original Theme, Op. 36 ""Enigma""",290,2,24,Edward Elgar,250031,4124707,0.99
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+You generated this python code:
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+
+Fix the python code above and return the new python code:
+            
+2026-01-14 04:02:40 [INFO] Code generated:
+            ```
+            track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+            ```
+            
+2026-01-14 04:02:40 [INFO] Executing Step 2: CodeCleaning
+2026-01-14 04:02:40 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:02:40 [INFO] 
+Code running:
+```
+track_df = dfs[0]
+sorted_tracks = track_df.sort_values(by='Milliseconds', ascending=False)
+longest_tracks = sorted_tracks.head(10)
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Length in Milliseconds')
+plt.title('Longest Tracks in the Database')
+plt.xticks(rotation=90)
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:02:40 [INFO] Executing Step 7: ResultValidation
+2026-01-14 04:02:40 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-14 04:02:40 [INFO] Executing Step 8: ResultParsing
+2026-01-14 04:08:21 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:08:21 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:08:22 [INFO] Question: show me a bar chart for tracks with longest length in the database
+2026-01-14 04:08:22 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:08:22 [INFO] Prompt ID: e6d28212-912b-4966-8cf8-b702e33f251b
+2026-01-14 04:08:22 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:08:22 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:08:22 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:08:22 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:08:22 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2628,Love Removal Machine,213,1,1,,257619,8412167,0.99
+1582,Stairway To Heaven,127,1,1,Robert Plant,529658,17050485,0.99
+2532,The House Is Rockin',205,1,6,Doyle Bramhall/Stevie Ray Vaughan,144352,4706253,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:08:22 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:08:22 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:08:22 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2628,Love Removal Machine,213,1,1,,257619,8412167,0.99
+1582,Stairway To Heaven,127,1,1,Robert Plant,529658,17050485,0.99
+2532,The House Is Rockin',205,1,6,Doyle Bramhall/Stevie Ray Vaughan,144352,4706253,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a bar chart for tracks with longest length in the database
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:08:22 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of dataframes and we're using the first one
+track_df = dfs[0]
+
+# Get the tracks with the longest length
+longest_tracks = track_df.nlargest(10, 'Milliseconds')
+
+# Create a bar chart
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Tracks with the Longest Length')
+plt.xticks(rotation=90)
+plt.tight_layout()
+
+# Save the plot as a png file
+plt.savefig('longest_tracks.png')
+
+# Declare result var: 
+result = { 
+    "type": "plot", 
+    "value": "longest_tracks.png" 
+}
+            ```
+            
+2026-01-14 04:08:22 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:08:22 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:08:22 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:08:22 [INFO] 
+Code running:
+```
+track_df = dfs[0]
+longest_tracks = track_df.nlargest(10, 'Milliseconds')
+plt.figure(figsize=(10, 6))
+plt.bar(longest_tracks['Name'], longest_tracks['Milliseconds'])
+plt.xlabel('Track Name')
+plt.ylabel('Milliseconds')
+plt.title('Tracks with the Longest Length')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:08:22 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:08:22 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 9, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+2026-01-14 04:08:22 [ERROR] Pipeline failed on step 6: 'tight_layout' is not allowed in RestrictedMatplotlib
+2026-01-14 04:08:36 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:08:36 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:08:37 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:08:45 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:08:46 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:08:46 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-01-14 04:08:46 [INFO] Retrying request to /openai/v1/chat/completions in 2.000000 seconds
+2026-01-14 04:08:48 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:09:16 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:09:16 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:09:16 [INFO] Question: show me pi chart with artists names and their albums in the Database top 10 only
+2026-01-14 04:09:16 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:09:16 [INFO] Prompt ID: fd4b21e0-e324-4616-b99e-8251d4ebeffc
+2026-01-14 04:09:16 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:09:16 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:09:16 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:09:16 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:09:16 [INFO] Using prompt: <dataframe name="album">
+dfs[0]:347x3
+AlbumId,Title,ArtistId
+313,Bizet: Carmen Highlights,246
+264,Realize,199
+196,Retrospective I (1974-1980),128
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me pi chart with artists names and their albums in the Database top 10 only
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:09:16 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:09:18 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:09:18 [INFO] Prompt used:
+            
+<dataframe name="album">
+dfs[0]:347x3
+AlbumId,Title,ArtistId
+313,Bizet: Carmen Highlights,246
+264,Realize,199
+196,Retrospective I (1974-1980),128
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me pi chart with artists names and their albums in the Database top 10 only
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:09:18 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Filter the top 10 artists with the most albums
+top_10_artists = dfs[0].groupby('ArtistId').count().sort_values(by='AlbumId', ascending=False).head(10)
+
+# Create a pie chart with artists names and their albums
+plt.figure(figsize=(10, 6))
+plt.pie(top_10_artists['AlbumId'], labels=top_10_artists.index, autopct='%1.1f%%')
+plt.title('Top 10 Artists by Number of Albums')
+plt.savefig('top_10_artists_pie_chart.png')
+
+# Declare result var: 
+result = { 
+    "type": "plot", 
+    "value": "top_10_artists_pie_chart.png" 
+}
+            ```
+            
+2026-01-14 04:09:18 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:09:18 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:09:18 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:09:18 [INFO] 
+Code running:
+```
+top_10_artists = dfs[0].groupby('ArtistId').count().sort_values(by='AlbumId', ascending=False).head(10)
+plt.figure(figsize=(10, 6))
+plt.pie(top_10_artists['AlbumId'], labels=top_10_artists.index, autopct='%1.1f%%')
+plt.title('Top 10 Artists by Number of Albums')
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:09:18 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:09:18 [INFO] Executing Step 7: ResultValidation
+2026-01-14 04:09:18 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-14 04:09:18 [INFO] Executing Step 8: ResultParsing
+2026-01-14 04:24:20 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:24:21 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:24:22 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:24:31 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:24:32 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:24:33 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:30:37 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:30:37 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:30:38 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-01-14 04:35:53 [INFO] Question: plot to me in a bar chart each singer with their number of songs
+2026-01-14 04:35:53 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:35:53 [INFO] Prompt ID: 57cf9421-f6e4-4546-a0a3-ffa782b07a1b
+2026-01-14 04:35:53 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:35:53 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:35:53 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:35:53 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:35:53 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+604,New Rhumba,48,1,2,Miles Davis,277968,9018024,0.99
+3061,Big Bad Bill (Is Sweet William Now),242,1,1,Jack Yellen/Milton Ager,165146,5489609,0.99
+1437,"If I Like It, I Do It",116,1,1,"Gelder, Nick van",293093,9848207,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ plot to me in a bar chart each singer with their number of songs
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:35:53 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:35:54 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:35:54 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+604,New Rhumba,48,1,2,Miles Davis,277968,9018024,0.99
+3061,Big Bad Bill (Is Sweet William Now),242,1,1,Jack Yellen/Milton Ager,165146,5489609,0.99
+1437,"If I Like It, I Do It",116,1,1,"Gelder, Nick van",293093,9848207,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ plot to me in a bar chart each singer with their number of songs
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:35:54 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Write code here
+track = dfs[0]
+
+# Group by Composer and count the number of songs for each composer
+composer_counts = track['Composer'].value_counts()
+
+# Plot a bar chart to show the number of songs for each composer
+plt.figure(figsize=(10, 6))
+plt.bar(composer_counts.index, composer_counts.values)
+plt.xlabel('Composer')
+plt.ylabel('Number of Songs')
+plt.title('Number of Songs by Composer')
+plt.xticks(rotation=90)
+
+# Save the plot as a png file
+plt.tight_layout()
+plt.savefig('composer_songs.png', bbox_inches='tight')
+
+# Declare result var: 
+result = {"type": "plot", "value": "composer_songs.png"}
+            ```
+            
+2026-01-14 04:35:54 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:35:54 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:35:54 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:35:54 [INFO] 
+Code running:
+```
+track = dfs[0]
+composer_counts = track['Composer'].value_counts()
+plt.figure(figsize=(10, 6))
+plt.bar(composer_counts.index, composer_counts.values)
+plt.xlabel('Composer')
+plt.ylabel('Number of Songs')
+plt.title('Number of Songs by Composer')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:35:54 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:35:55 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 9, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+2026-01-14 04:35:55 [ERROR] Pipeline failed on step 6: 'tight_layout' is not allowed in RestrictedMatplotlib
+2026-01-14 04:36:18 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:36:19 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:36:19 [INFO] Question: plot to me in a pi chart each singer with their number of songs
+2026-01-14 04:36:19 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:36:19 [INFO] Prompt ID: 3474b9b8-276f-4706-93ff-12ddc72b9aef
+2026-01-14 04:36:19 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:36:19 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:36:19 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:36:19 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:36:19 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2327,Driver 8,190,1,4,R.E.M.,204747,6779076,0.99
+1403,The Edge Of Darkness,113,1,1,Blaze Bayley/Janick Gers/Steve Harris,399333,15974528,0.99
+576,Maria Maria,46,1,1,"W. Jean, J. Duplessis, Carlos Santana, K. Perazzo & R. Rekow",262635,8664601,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ plot to me in a pi chart each singer with their number of songs
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:36:19 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:36:19 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:36:19 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2327,Driver 8,190,1,4,R.E.M.,204747,6779076,0.99
+1403,The Edge Of Darkness,113,1,1,Blaze Bayley/Janick Gers/Steve Harris,399333,15974528,0.99
+576,Maria Maria,46,1,1,"W. Jean, J. Duplessis, Carlos Santana, K. Perazzo & R. Rekow",262635,8664601,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ plot to me in a pi chart each singer with their number of songs
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:36:19 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Select the required dataframe
+track_df = dfs[0]
+
+# Count the number of songs for each singer
+singer_songs = track_df['Composer'].value_counts()
+
+# Create a pie chart
+plt.figure(figsize=(10,8))
+plt.pie(singer_songs, labels=singer_songs.index, autopct='%1.1f%%')
+plt.title('Number of Songs per Singer')
+plt.savefig('singer_songs_pie_chart.png', bbox_inches='tight')
+
+# Declare result var: 
+result = {
+    "type": "plot", 
+    "value": "singer_songs_pie_chart.png"
+}
+            ```
+            
+2026-01-14 04:36:19 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:36:19 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:36:19 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:36:19 [INFO] 
+Code running:
+```
+track_df = dfs[0]
+singer_songs = track_df['Composer'].value_counts()
+plt.figure(figsize=(10, 8))
+plt.pie(singer_songs, labels=singer_songs.index, autopct='%1.1f%%')
+plt.title('Number of Songs per Singer')
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:36:19 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:36:24 [INFO] Executing Step 7: ResultValidation
+2026-01-14 04:36:24 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-14 04:36:24 [INFO] Executing Step 8: ResultParsing
+2026-01-14 04:36:48 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:36:48 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:36:48 [INFO] Question: plot to me in a bar chart each singer with their number of songs top 10 only
+2026-01-14 04:36:48 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:36:48 [INFO] Prompt ID: a87d10b2-2a7e-42aa-962b-72699014ffeb
+2026-01-14 04:36:48 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:36:48 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:36:48 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:36:48 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:36:48 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2479,Here's To The Atom Bomb,201,1,4,Billy Corgan,266893,8763140,0.99
+1674,Longe Do Meu Lado,139,1,7,Renato Russo - Marcelo Bonfá,266161,8655249,0.99
+2103,Flying High Again,174,1,3,"O. Osbourne, R. Daisley, R. Rhoads, L. Kerslake",261224,8481822,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ plot to me in a bar chart each singer with their number of songs top 10 only
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:36:48 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:36:49 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:36:49 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+2479,Here's To The Atom Bomb,201,1,4,Billy Corgan,266893,8763140,0.99
+1674,Longe Do Meu Lado,139,1,7,Renato Russo - Marcelo Bonfá,266161,8655249,0.99
+2103,Flying High Again,174,1,3,"O. Osbourne, R. Daisley, R. Rhoads, L. Kerslake",261224,8481822,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ plot to me in a bar chart each singer with their number of songs top 10 only
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:36:49 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the track dataframe
+track = dfs[0]
+
+# Count the number of songs for each composer
+composer_counts = track['Composer'].value_counts()
+
+# Get the top 10 composers with the most songs
+top_composers = composer_counts.nlargest(10)
+
+# Create a bar chart
+plt.figure(figsize=(10, 6))
+plt.bar(top_composers.index, top_composers.values)
+plt.xlabel('Composer')
+plt.ylabel('Number of Songs')
+plt.title('Top 10 Composers with the Most Songs')
+plt.xticks(rotation=90)
+plt.tight_layout()
+
+# Save the chart as a png file
+plt.savefig('top_composers.png')
+plt.close()
+
+# Declare result var
+result = {
+    "type": "plot",
+    "value": "top_composers.png"
+}
+            ```
+            
+2026-01-14 04:36:49 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:36:49 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:36:49 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:36:49 [INFO] 
+Code running:
+```
+track = dfs[0]
+composer_counts = track['Composer'].value_counts()
+top_composers = composer_counts.nlargest(10)
+plt.figure(figsize=(10, 6))
+plt.bar(top_composers.index, top_composers.values)
+plt.xlabel('Composer')
+plt.ylabel('Number of Songs')
+plt.title('Top 10 Composers with the Most Songs')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+plt.close()
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:36:49 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:36:49 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+2026-01-14 04:36:49 [ERROR] Pipeline failed on step 6: 'tight_layout' is not allowed in RestrictedMatplotlib
+2026-01-14 04:37:05 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:37:05 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:37:05 [INFO] Question: plot to me in a bar chart each singer with their number of songs
+2026-01-14 04:37:05 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-14 04:37:05 [INFO] Prompt ID: 8186ba0e-ddbd-4c17-a2ef-7ed4ad20012b
+2026-01-14 04:37:05 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-14 04:37:05 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-14 04:37:05 [INFO] Executing Step 1: CacheLookup
+2026-01-14 04:37:05 [INFO] Executing Step 2: PromptGeneration
+2026-01-14 04:37:05 [INFO] Using prompt: <dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+1751,Lords Of The Backstage,144,1,1,"Kelly, Mosley, Rothery, Trewaves",112875,3741319,0.99
+1885,Dirty Window,155,1,3,Bob Rock/James Hetfield/Kirk Hammett/Lars Ulrich,324989,10670604,0.99
+267,Maracatu Atômico [Ragga Mix],24,1,7,Chico Science,210155,6986421,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ plot to me in a bar chart each singer with their number of songs
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-14 04:37:05 [INFO] Executing Step 3: CodeGenerator
+2026-01-14 04:37:06 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-14 04:37:06 [INFO] Prompt used:
+            
+<dataframe name="track">
+dfs[0]:3503x9
+TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice
+1751,Lords Of The Backstage,144,1,1,"Kelly, Mosley, Rothery, Trewaves",112875,3741319,0.99
+1885,Dirty Window,155,1,3,Bob Rock/James Hetfield/Kirk Hammett/Lars Ulrich,324989,10670604,0.99
+267,Maracatu Atômico [Ragga Mix],24,1,7,Chico Science,210155,6986421,0.99
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ plot to me in a bar chart each singer with their number of songs
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-14 04:37:06 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the track dataframe
+track_df = dfs[0]
+
+# Group by Composer and count the number of songs
+singer_songs = track_df['Composer'].value_counts().reset_index()
+singer_songs.columns = ['Singer', 'Number of Songs']
+
+# Plot the bar chart
+plt.figure(figsize=(10, 6))
+plt.bar(singer_songs['Singer'], singer_songs['Number of Songs'])
+plt.xlabel('Singer')
+plt.ylabel('Number of Songs')
+plt.title('Number of Songs by Singer')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('singer_songs.png')
+
+# Declare result var: 
+result = {
+    "type": "plot", 
+    "value": "singer_songs.png"
+}
+            ```
+            
+2026-01-14 04:37:06 [INFO] Executing Step 4: CachePopulation
+2026-01-14 04:37:06 [INFO] Executing Step 5: CodeCleaning
+2026-01-14 04:37:06 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-14 04:37:06 [INFO] 
+Code running:
+```
+track_df = dfs[0]
+singer_songs = track_df['Composer'].value_counts().reset_index()
+singer_songs.columns = ['Singer', 'Number of Songs']
+plt.figure(figsize=(10, 6))
+plt.bar(singer_songs['Singer'], singer_songs['Number of Songs'])
+plt.xlabel('Singer')
+plt.ylabel('Number of Songs')
+plt.title('Number of Songs by Singer')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-14 04:37:06 [INFO] Executing Step 6: CodeExecution
+2026-01-14 04:37:07 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 10, in <module>
+  File "C:\Users\besho\AppData\Roaming\Python\Python310\site-packages\pandasai\safe_libs\restricted_matplotlib.py", line 75, in __getattr__
+    raise AttributeError(f"'{name}' is not allowed in RestrictedMatplotlib")
+AttributeError: 'tight_layout' is not allowed in RestrictedMatplotlib
+
+2026-01-14 04:37:07 [ERROR] Pipeline failed on step 6: 'tight_layout' is not allowed in RestrictedMatplotlib
+2026-01-16 04:17:30 [INFO] Question: show me a visualization of the top  7 artist depend on their albums on a bar chart
+2026-01-16 04:17:30 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-16 04:17:30 [INFO] Prompt ID: 922f48b8-47ed-42e3-8e1b-cdc083bed2c5
+2026-01-16 04:17:30 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-16 04:17:30 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-16 04:17:30 [INFO] Executing Step 1: CacheLookup
+2026-01-16 04:17:30 [INFO] Executing Step 2: PromptGeneration
+2026-01-16 04:17:30 [INFO] Using prompt: <dataframe name="album">
+dfs[0]:347x3
+AlbumId,Title,ArtistId
+200,O Samba Poconé,130
+165,Compositores,111
+314,English Renaissance,247
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a visualization of the top  7 artist depend on their albums on a bar chart
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-16 04:17:30 [INFO] Executing Step 3: CodeGenerator
+2026-01-16 04:17:31 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:17:31 [INFO] Prompt used:
+            
+<dataframe name="album">
+dfs[0]:347x3
+AlbumId,Title,ArtistId
+200,O Samba Poconé,130
+165,Compositores,111
+314,English Renaissance,247
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a visualization of the top  7 artist depend on their albums on a bar chart
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-16 04:17:31 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Get the required dataframe from the list of dataframes
+album = dfs[0]
+
+# Group by ArtistId and count the number of albums for each artist
+artist_album_count = album.groupby('ArtistId').size().reset_index(name='AlbumCount')
+
+# Sort the albums in descending order and get the top 7 artists
+top_7_artists = artist_album_count.sort_values(by='AlbumCount', ascending=False).head(7)
+
+# Create a bar chart to visualize the top 7 artists
+plt.figure(figsize=(10,6))
+plt.bar(top_7_artists['ArtistId'], top_7_artists['AlbumCount'])
+plt.xlabel('ArtistId')
+plt.ylabel('Number of Albums')
+plt.title('Top 7 Artists by Number of Albums')
+plt.savefig('top_7_artists.png')
+
+# Declare result var
+result = {
+    "type": "plot", 
+    "value": "top_7_artists.png"
+}
+            ```
+            
+2026-01-16 04:17:31 [INFO] Executing Step 4: CachePopulation
+2026-01-16 04:17:31 [INFO] Executing Step 5: CodeCleaning
+2026-01-16 04:17:31 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-16 04:17:31 [INFO] 
+Code running:
+```
+album = dfs[0]
+artist_album_count = album.groupby('ArtistId').size().reset_index(name='AlbumCount')
+top_7_artists = artist_album_count.sort_values(by='AlbumCount', ascending=False).head(7)
+plt.figure(figsize=(10, 6))
+plt.bar(top_7_artists['ArtistId'], top_7_artists['AlbumCount'])
+plt.xlabel('ArtistId')
+plt.ylabel('Number of Albums')
+plt.title('Top 7 Artists by Number of Albums')
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-16 04:17:31 [INFO] Executing Step 6: CodeExecution
+2026-01-16 04:17:31 [INFO] Executing Step 7: ResultValidation
+2026-01-16 04:17:31 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-16 04:17:31 [INFO] Executing Step 8: ResultParsing
+2026-01-16 04:18:11 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:18:11 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:18:11 [INFO] Question: show me a visualization of the top 7 artist with thier names depending on their albums on a bar chart
+2026-01-16 04:18:11 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-16 04:18:11 [INFO] Prompt ID: 350ef0ba-65d4-4c8f-ae29-00ddb8351172
+2026-01-16 04:18:11 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-16 04:18:11 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-16 04:18:11 [INFO] Executing Step 1: CacheLookup
+2026-01-16 04:18:11 [INFO] Executing Step 2: PromptGeneration
+2026-01-16 04:18:11 [INFO] Using prompt: <dataframe name="album">
+dfs[0]:347x3
+AlbumId,Title,ArtistId
+158,Milton Nascimento Ao Vivo,42
+113,The X Factor,90
+166,Olodum,112
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a visualization of the top 7 artist with thier names depending on their albums on a bar chart
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-16 04:18:11 [INFO] Executing Step 3: CodeGenerator
+2026-01-16 04:18:12 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:18:12 [INFO] Prompt used:
+            
+<dataframe name="album">
+dfs[0]:347x3
+AlbumId,Title,ArtistId
+158,Milton Nascimento Ao Vivo,42
+113,The X Factor,90
+166,Olodum,112
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ show me a visualization of the top 7 artist with thier names depending on their albums on a bar chart
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-16 04:18:12 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Write code here
+# Get the album dataframe
+album_df = dfs[0]
+
+# Count the number of albums for each artist
+artist_albums = album_df['ArtistId'].value_counts().head(7)
+
+# Create a bar chart
+plt.figure(figsize=(10,6))
+plt.bar(artist_albums.index, artist_albums.values)
+plt.xlabel('ArtistId')
+plt.ylabel('Number of Albums')
+plt.title('Top 7 Artists by Number of Albums')
+plt.savefig('top_artists.png')
+
+# Declare result var: 
+result = { 
+    "type": "plot", 
+    "value": "top_artists.png" 
+}
+            ```
+            
+2026-01-16 04:18:12 [INFO] Executing Step 4: CachePopulation
+2026-01-16 04:18:12 [INFO] Executing Step 5: CodeCleaning
+2026-01-16 04:18:12 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-16 04:18:12 [INFO] 
+Code running:
+```
+album_df = dfs[0]
+artist_albums = album_df['ArtistId'].value_counts().head(7)
+plt.figure(figsize=(10, 6))
+plt.bar(artist_albums.index, artist_albums.values)
+plt.xlabel('ArtistId')
+plt.ylabel('Number of Albums')
+plt.title('Top 7 Artists by Number of Albums')
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-16 04:18:12 [INFO] Executing Step 6: CodeExecution
+2026-01-16 04:18:12 [INFO] Executing Step 7: ResultValidation
+2026-01-16 04:18:12 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-16 04:18:12 [INFO] Executing Step 8: ResultParsing
+2026-01-16 04:22:43 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:22:43 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:22:43 [INFO] Question: vizulization 
+2026-01-16 04:22:43 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2026-01-16 04:22:43 [INFO] Prompt ID: dfa0ecda-85c3-46a0-85da-6ed036a46fc5
+2026-01-16 04:22:43 [INFO] Executing Pipeline: GenerateChatPipeline
+2026-01-16 04:22:43 [INFO] Executing Step 0: ValidatePipelineInput
+2026-01-16 04:22:43 [INFO] Executing Step 1: CacheLookup
+2026-01-16 04:22:43 [INFO] Executing Step 2: PromptGeneration
+2026-01-16 04:22:43 [INFO] Using prompt: <dataframe name="playlisttrack">
+dfs[0]:8715x2
+PlaylistId,TrackId
+8,1854
+8,938
+8,1213
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ vizulization 
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2026-01-16 04:22:43 [INFO] Executing Step 3: CodeGenerator
+2026-01-16 04:22:44 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:22:44 [INFO] Prompt used:
+            
+<dataframe name="playlisttrack">
+dfs[0]:8715x2
+PlaylistId,TrackId
+8,1854
+8,938
+8,1213
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ vizulization 
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2026-01-16 04:22:44 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Write code here
+# Assuming dfs is a list of dataframes and we want to visualize the distribution of TrackIds in the first dataframe
+dfs[0].hist(column='TrackId', figsize=(10, 8))
+plt.title('Distribution of TrackIds')
+plt.xlabel('TrackId')
+plt.ylabel('Frequency')
+plt.savefig('track_id_distribution.png', bbox_inches='tight')
+
+# Declare result var: 
+result = { 
+    "type": "plot", 
+    "value": "track_id_distribution.png" 
+}
+            ```
+            
+2026-01-16 04:22:44 [INFO] Executing Step 4: CachePopulation
+2026-01-16 04:22:44 [INFO] Executing Step 5: CodeCleaning
+2026-01-16 04:22:44 [INFO] Saving charts to C:\Users\besho\Desktop\Project\DATABASE-CHATBOT-last_one\DATABASE-CHATBOT-last_one\exports\charts\temp_chart.png
+2026-01-16 04:22:44 [INFO] 
+Code running:
+```
+dfs[0].hist(column='TrackId', figsize=(10, 8))
+plt.title('Distribution of TrackIds')
+plt.xlabel('TrackId')
+plt.ylabel('Frequency')
+plt.savefig('C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png', bbox_inches='tight')
+result = {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+        ```
+2026-01-16 04:22:44 [INFO] Executing Step 6: CodeExecution
+2026-01-16 04:22:44 [INFO] Executing Step 7: ResultValidation
+2026-01-16 04:22:44 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/besho/Desktop/Project/DATABASE-CHATBOT-last_one/DATABASE-CHATBOT-last_one/exports/charts/temp_chart.png'}
+2026-01-16 04:22:44 [INFO] Executing Step 8: ResultParsing
+2026-01-16 04:22:57 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:22:57 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-16 04:22:58 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
