@@ -1,4 +1,4 @@
-# Vodafone-Chatbot with open-source models
+# DataBase-Chatbot with open-source model
 
 ## Project Overview
 
