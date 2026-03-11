@@ -15,7 +15,7 @@ from PIL import Image
 import pyodbc
 import glob
 import os
-from voice_recognition import record_and_recognize
+from src.voice_recognition.voice_recognition import record_and_recognize
 
 
 # Load environment variables from a .env file
